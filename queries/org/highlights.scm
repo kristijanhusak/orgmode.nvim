@@ -13,15 +13,15 @@
 (body (paragraph) @spell)
 (bullet) @OrgTSBullet
 (checkbox) @OrgTSCheckbox
-(checkbox status: (expr "-") @OrgTSCheckboxHalfChecked)
-(checkbox status: (expr "str") @OrgTSCheckboxChecked (#any-of? @OrgTSCheckboxChecked "x" "X"))
+(checkbox status: (_) @OrgTSCheckboxHalfChecked (#eq? @OrgTSCheckboxHalfChecked "-"))
+(checkbox status: (_) @OrgTSCheckboxChecked (#any-of? @OrgTSCheckboxChecked "x" "X"))
 (block "#+begin_" @OrgTSBlock "#+end_" @OrgTSBlock)
-(block name: (expr) @OrgTSBlock)
-(block end_name: (expr) @OrgTSBlock)
-(block parameter: (expr) @OrgTSBlock)
-(dynamic_block name: (expr) @OrgTSBlock)
-(dynamic_block end_name: (expr) @OrgTSBlock)
-(dynamic_block parameter: (expr) @OrgTSBlock)
+(block name: (name) @OrgTSBlock)
+(block end_name: (name) @OrgTSBlock)
+(block parameter: (str) @OrgTSBlock)
+(dynamic_block name: (name) @OrgTSBlock)
+(dynamic_block end_name: (name) @OrgTSBlock)
+(dynamic_block parameter: (str) @OrgTSBlock)
 (property_drawer) @OrgTSPropertyDrawer
 (latex_env) @OrgTSLatex
 (drawer) @OrgTSDrawer

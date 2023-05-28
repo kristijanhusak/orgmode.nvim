@@ -551,7 +551,7 @@ function OrgMappings:handle_return(suffix)
   suffix = suffix or ''
   local current_file = Files.get_current_file()
   local item = current_file:get_current_node()
-  if item.type == 'expr' then
+  if item.type == 'str' or item.type == 'sym' or item.type == 'nl' then
     item = current_file:convert_to_file_node(item.node:parent())
   end
 

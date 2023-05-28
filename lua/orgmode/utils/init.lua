@@ -462,7 +462,7 @@ function utils.get_nearest_block_node(file, cursor, accept_at_cursor)
 
   -- Block might not have contents yet, which is fine
   local children_nodes = file:get_ts_matches(
-    '(block name: (expr) @name parameter: (expr) @parameters contents: (contents)? @contents)',
+    '(block name: (name) @name parameter: (str) @parameters contents: (contents)? @contents)',
     block_node
   )[1]
   if not children_nodes or not children_nodes.name or not children_nodes.parameters then

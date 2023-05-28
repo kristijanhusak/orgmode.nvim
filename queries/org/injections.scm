@@ -1,1 +1,1 @@
- (block parameter: (expr) @language (contents) @content)
+ (block parameter: (str) @language (contents) @content)

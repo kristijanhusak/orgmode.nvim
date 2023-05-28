@@ -130,7 +130,7 @@ function Section.from_node(section_node, file, parent)
               })
             )
           end
-          if entry:named_child_count() == 2 and first_node:type() == 'entry_name' then
+          if entry:named_child_count() == 2 and first_node:type() == 'name' then
             local valid_plan_types = { 'SCHEDULED', 'DEADLINE', 'CLOSED' }
             local type = 'NONE'
             if vim.tbl_contains(valid_plan_types, first_node_text:upper()) then

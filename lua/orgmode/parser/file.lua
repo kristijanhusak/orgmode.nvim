@@ -397,7 +397,7 @@ end
 ---@private
 function File:_parse_source_code_filetypes()
   local blocks =
-    self:get_ts_matches('(block name: (expr) @name parameter: (expr) @parameters (#match? @name "(src|SRC)"))')
+    self:get_ts_matches('(block name: (name) @name parameter: (str) @parameters (#match? @name "(src|SRC)"))')
   local source_code_filetypes = {}
   for _, item in ipairs(blocks) do
     local ft = item.parameters and item.parameters.text
@@ -414,7 +414,7 @@ function File:_parse_source_code_filetypes()
 end
 
 function File:_parse_directives()
-  local directives = self:get_ts_matches([[(directive name: (expr) @name value: (value) @value)]])
+  local directives = self:get_ts_matches([[(directive name: (name) @name value: (value) @value)]])
   local tags = {}
   for _, directive in ipairs(directives) do
     local directive_name = directive.name.text:lower()

@@ -53,6 +53,17 @@ local DefaultConfig = {
     deadline_reminder = true,
     scheduled_reminder = true,
   },
+  org_nontext_hyperlinks = false,
+  org_external_opener = 'xdg-open',
+  org_link_types = {
+    shell = {
+      handler = function(url)
+        url = string.gsub(url, '^shell:', '')
+        vim.fn.jobstart(url, { detach = true })
+        return
+      end,
+    },
+  },
   mappings = {
     disable_all = false,
     prefix = '<Leader>o',

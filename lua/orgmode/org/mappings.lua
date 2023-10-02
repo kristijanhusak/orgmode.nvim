@@ -798,6 +798,7 @@ function OrgMappings:open_at_point()
   local parts = vim.split(link.content, '][', true)
   local url = parts[1]
   local link_ctx = { base = url, skip_add_prefix = true }
+
   if url:find('^file:') then
     if url:find(' +', 1, true) then
       parts = vim.split(url, ' +', true)
@@ -810,6 +811,9 @@ function OrgMappings:open_at_point()
 
     if url:find('^file:(.-)::') then
       link_ctx.line = url
+    elseif config.org_nontext_hyperlinks and vim.filetype.match({ filename = url }) == nil then
+      local filepath = Hyperlinks.get_file_real_path(url)
+      vim.fn.jobstart(config.org_external_opener .. ' ' .. vim.fn.shellescape(filepath), { detach = true })
     else
       vim.cmd(string.format('edit %s', Hyperlinks.get_file_real_path(url)))
       vim.cmd([[normal! zv]])
@@ -825,6 +829,12 @@ function OrgMappings:open_at_point()
   local stat = vim.loop.fs_stat(url)
   if stat and stat.type == 'file' then
     return vim.cmd(string.format('edit %s', url))
+  end
+
+  pref = string.gsub(url, '^(.-):.*', '%1')
+  if config.org_link_types[pref] ~= nil then
+    config.org_link_types[pref].handler(url)
+    return
   end
 
   local headlines = Hyperlinks.find_matching_links(link_ctx)

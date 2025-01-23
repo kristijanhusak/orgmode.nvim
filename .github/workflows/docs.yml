@@ -1,0 +1,26 @@
+name: docs
+
+on:
+  push:
+    branches:
+      - feat/web-docs
+    paths:
+      - docs/**
+
+jobs:
+  docgen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+      - name: Push docs to nvim-orgmode.github.io repo
+        uses: nkoppel/push-files-to-another-repository@v1.1.4
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.GH_TOKEN }}
+        with:
+          source-files: 'docs/'
+          destination-username: 'nvim-orgmode'
+          destination-repository: 'nvim-orgmode.github.io'
+          destination-branch: 'feat/vitepress'
+          commit-email: 'github-actions@github.com'
